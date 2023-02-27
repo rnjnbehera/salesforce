@@ -1,0 +1,64 @@
+<template>
+    <div class="mycard">
+      <label><lightning-icon icon-name="standard:partners" class="header-icon-test"></lightning-icon><b>Registration Form </b></label>
+        <div class="padding-all">
+            <label><span class="span-col">*</span>First Name</label>
+            <input type="text" data-field="FirstName" class="input-field-test"></input>
+            <p if:true = {enableFirstnameField} class="input-vald">{firstNameValidationText}</p>
+            <label><span class="span-col">*</span>Last Name</label>            
+            <input type="text" data-field="LastName" class="input-field-test"></input>
+            <p if:true = {enableLastnameField} class="input-vald">{lastNameValidationText}</p>
+            <label><span class="span-col">*</span>Email ID</label>            
+            <input type="text" data-field="Email" class="input-field-test"></input>
+            <p if:true = {enableEmailField} class="input-vald">{emailValidationText}</p>
+            <label><span class="span-col">*</span>Country</label>          
+            <select data-field="Country" class="input-field-test" onchange={country} >
+                <option value="">Select</option>
+                <option value="USA">USA</option>
+                <option value="Bahrain">Bahrain</option>
+                <option value="Canada">Canada</option>
+                <option value="India">India</option>
+                <option value="Other">Other</option>
+              </select>
+            <input if:true = {enableOtherField} type="text" data-field="OtherCountry" class="input-field-test"></input>
+            <p if:true = {enableCountryField} class="input-vald">{countryValidationText}</p>
+            <label><span class="span-col">*</span>Phone Number</label>            
+            <input type="text" data-field="Phone" class="input-field-test"></input>
+            <p if:true = {enablePhoneField} class="input-vald">{phoneValidationText}</p>
+            <div class="slds-text-align_right submit-btn">
+                <button if:false = {enableEdit} class="smt-btn" onclick={onSubmit} >Submit</button>
+                <button if:true = {enableEdit} id="" data-field="Edit" class="smt-btn" onclick={onSubmit} >Update</button>
+            </div>
+        </div>
+    </div>  
+    <div  class="mycard" >
+        <label><lightning-icon icon-name="custom:custom63" class="header-icon-test"></lightning-icon><b>User Information </b></label>
+        <div class="padding-all">
+            <table >
+                <thead>
+                    <tr>
+                        <th>User Name</th>
+                        <th>Email ID</th>
+                        <th>Country</th>
+                        <th>Phone Number</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                        <template for:each={userInputs} for:item="info">
+                            <tr key={info.Id}>                                
+                                <td>{info.Name}</td>
+                                <td>{info.Email__c}</td>
+                                <td>{info.Country__c}</td>
+                                <td>{info.Phone__c}</td>
+                                <td><lightning-icon title="edit" id={info.Id}  icon-name="utility:edit" class="header-icon-test" size="small" onclick={edit} ></lightning-icon>
+                                    <lightning-icon title="delete" id={info.Id}  icon-name="utility:delete" class="header-icon-test" size="small" onclick ={deleteRecord} ></lightning-icon>
+                                </td>
+                        </tr>
+                        </template>                
+                </tbody>
+            </table>
+        </div>
+    </div>
+</template>

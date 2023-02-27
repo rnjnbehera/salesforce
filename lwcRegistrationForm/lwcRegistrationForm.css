@@ -1,0 +1,87 @@
+.padding-all {
+    padding: 20px;
+}
+.submit-btn{
+    padding: 10px;
+}
+.span-col{
+    color:red
+}
+.input-vald{
+    color:#c23934;
+    padding-bottom: 20px;
+}
+.mycard {
+    box-shadow: 0 4px 8px 0; /* this adds the "card" effect */
+    padding: 16px;    
+    background-color: #f1f1f1;
+    box-sizing: border-box;
+    position: relative;
+    padding-top:  0;
+    padding-right:  0;
+    padding-bottom:  0;
+    padding-left:  0;
+    background: rgb(255, 255, 255);
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(201, 201, 201);
+    border-radius: 0.25rem;
+    background-clip: padding-box;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.10);
+    margin-bottom: 10px;
+  }
+  .header-icon-test{
+    display: inline-block;
+    border-radius: 0.25rem;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-right: 0.75rem;
+    margin-left: 0.75rem;
+    margin-top: 0.75rem;
+  }
+  .input-field-test{
+    padding-top: 0;
+    padding-right: 1rem;
+    padding-bottom: 0;
+    padding-left: 0.75rem;
+    width: 100%;
+    min-height: calc(1.875rem + (1px * 2));
+    line-height: 1.875rem;
+    border: 1px solid rgb(201, 201, 201);
+    border-radius: 0.25rem;
+    background-color: rgb(255, 255, 255);
+    transition: border 0.1s linear,background-color 0.1s linear;
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+  .smt-btn {
+    position: relative;
+    width: 21%;
+    text-align: center;
+    align-items: center;
+    padding: 0;
+    background: 0 0;
+    background-clip: border-box;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    line-height: 1.875rem;    
+    color: white;
+    background-color: #0070d2;
+  }
+
+  table {
+    margin-top: 10px;
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
