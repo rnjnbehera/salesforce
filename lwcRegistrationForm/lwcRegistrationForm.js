@@ -23,9 +23,13 @@ export default class LwcRegistrationForm extends LightningElement {
     error = "";
     userInputs = [];
     enableEdit = false;
+    wiretTestData ='';
+    firstname = '';
 
     @wire(getTestFirst)
-    wiredTestFirst({ error, data }){
+    wiredTestFirst(value){
+        this.wiretTestData = value;
+        const { data, error } = value;
         if(data){
             this.userInputs = data;
             this.error = '';
@@ -34,7 +38,9 @@ export default class LwcRegistrationForm extends LightningElement {
             this.userInputs = [];
         }
     }
- 
+    
+  
+    
         
     deleteRecord(event){
         let testObj = { 'sObjectType': 'testFirst__c' };
@@ -45,7 +51,7 @@ export default class LwcRegistrationForm extends LightningElement {
                 deleteUserRecord({deleteRecord: testObj})
                     .then(result => {                     
                     this.recordId=result.Id;           
-                    return refreshApex(this.userInputs);  
+                    refreshApex(this.wiretTestData);  
 
                     })
                     .catch(error => {
@@ -57,19 +63,23 @@ export default class LwcRegistrationForm extends LightningElement {
     
      edit(event){
        this.enableEdit=true;
+       try {
            
-       this.template.querySelector("[data-field='FirstName']").value 
-       = this.userInputs.filter(info => info.Id == event.target.id.replace('-12',""))[0].Name.split(" ")[0];
-       this.template.querySelector("[data-field='LastName']").value 
-       = this.userInputs.filter(info => info.Id == event.target.id.replace('-12',""))[0].Name.split(" ")[1];
-        this.template.querySelector("[data-field='Email']").value 
-        = this.userInputs.filter(info => info.Id == event.target.id.replace('-12',""))[0].Email__c;
-        this.template.querySelector("[data-field='Phone']").value 
-        = this.userInputs.filter(info => info.Id == event.target.id.replace('-12',""))[0].Phone__c;        
-        this.template.querySelector("[data-field='Country']").value 
-         = this.userInputs.filter(info => info.Id == event.target.id.replace('-12',""))[0].Country__c;
-        this.template.querySelector("[data-field='Edit']").value 
-         = this.userInputs.filter(info => info.Id == event.target.id.replace('-12',""))[0].Id;
+        this.firstname = this.userInputs.filter(info => info.Id == event.target.dataset.id)[0].Name.split(" ")[0];
+        this.template.querySelector("[data-field='LastName']").value 
+        = this.userInputs.filter(info => info.Id == event.target.dataset.id)[0].Name.split(" ")[1];
+         this.template.querySelector("[data-field='Email']").value 
+         = this.userInputs.filter(info => info.Id == event.target.dataset.id)[0].Email__c;
+         this.template.querySelector("[data-field='Phone']").value 
+         = this.userInputs.filter(info => info.Id == event.target.dataset.id)[0].Phone__c;        
+         this.template.querySelector("[data-field='Country']").value 
+          = this.userInputs.filter(info => info.Id == event.target.dataset.id)[0].Country__c;
+         this.template.querySelector("[data-field='Edit']").value 
+          = this.userInputs.filter(info => info.Id == event.target.dataset.id)[0].Id;
+       } catch(e) {
+        console.log(e.stack);
+       }
+       
         
                
     }
@@ -182,7 +192,7 @@ export default class LwcRegistrationForm extends LightningElement {
          updateUserRecord({updateRecord: testObj})
             .then(result => {                  
             this.recordId=result.Id;                   
-            return refreshApex(this.userInputs);  
+            refreshApex(this.wiretTestData);    
             })
             .catch(error => {
                 console.log(error);
@@ -193,7 +203,7 @@ export default class LwcRegistrationForm extends LightningElement {
         createUserRecord({newRecord: testObj})
                 .then(result => { 
                 this.recordId=result.Id;                
-                return refreshApex(this.userInputs);  
+                refreshApex(this.wiretTestData);    
                 })
                 .catch(error => {
                     console.log(error);

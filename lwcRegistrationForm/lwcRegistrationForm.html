@@ -3,7 +3,7 @@
       <label><lightning-icon icon-name="standard:partners" class="header-icon-test"></lightning-icon><b>Registration Form </b></label>
         <div class="padding-all">
             <label><span class="span-col">*</span>First Name</label>
-            <input type="text" data-field="FirstName" class="input-field-test"></input>
+            <input type="text" data-field="FirstName" value={firstname} class="input-field-test"></input>
             <p if:true = {enableFirstnameField} class="input-vald">{firstNameValidationText}</p>
             <label><span class="span-col">*</span>Last Name</label>            
             <input type="text" data-field="LastName" class="input-field-test"></input>
@@ -53,8 +53,8 @@
                                 <td>{info.Email__c}</td>
                                 <td>{info.Country__c}</td>
                                 <td>{info.Phone__c}</td>
-                                <td><lightning-icon title="edit" id={info.Id}  icon-name="utility:edit" class="header-icon-test" size="small" onclick={edit} ></lightning-icon>
-                                    <lightning-icon title="delete" id={info.Id}  icon-name="utility:delete" class="header-icon-test" size="small" onclick ={deleteRecord} ></lightning-icon>
+                                <td><lightning-icon title="edit" data-id={info.Id}  icon-name="utility:edit" class="header-icon-test" size="small" onclick={edit} ></lightning-icon>
+                                    <lightning-icon title="delete" data-id={info.Id}  icon-name="utility:delete" class="header-icon-test" size="small" onclick ={deleteRecord} ></lightning-icon>
                                 </td>
                         </tr>
                         </template>                
