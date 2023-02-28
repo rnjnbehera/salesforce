@@ -57,7 +57,7 @@ export default class LwcRegistrationForm extends LightningElement {
     
      edit(event){
        this.enableEdit=true;
-                
+           
        this.template.querySelector("[data-field='FirstName']").value 
        = this.userInputs.filter(info => info.Id == event.target.id.replace('-12',""))[0].Name.split(" ")[0];
        this.template.querySelector("[data-field='LastName']").value 
@@ -67,11 +67,11 @@ export default class LwcRegistrationForm extends LightningElement {
         this.template.querySelector("[data-field='Phone']").value 
         = this.userInputs.filter(info => info.Id == event.target.id.replace('-12',""))[0].Phone__c;        
         this.template.querySelector("[data-field='Country']").value 
-            = this.userInputs.filter(info => info.Id == event.target.id.replace('-12',""))[0].Country__c;
-        if(this.template.querySelector("[data-field='Edit']") != null)
-        {    
-           this.template.querySelector("[data-field='Edit']").id = event.target.id.replace('-12',"");    
-        }
+         = this.userInputs.filter(info => info.Id == event.target.id.replace('-12',""))[0].Country__c;
+        this.template.querySelector("[data-field='Edit']").value 
+         = this.userInputs.filter(info => info.Id == event.target.id.replace('-12',""))[0].Id;
+        
+               
     }
 
     country(event){
@@ -175,9 +175,10 @@ export default class LwcRegistrationForm extends LightningElement {
        testObj.Phone__c = this.phoneWithCountryCode + this.template.querySelector("[data-field='Phone']").value;
        testObj.Email__c = this.template.querySelector("[data-field='Email']").value;
        testObj.Country__c =  this.otherTempValue;
-       if(this.template.querySelector("[data-field='Edit']") != null)
-       {
-         testObj.Id = this.template.querySelector("[data-field='Edit']").id;
+       if(this.template.querySelector("[data-field='Edit']").value != null)
+       {  
+            
+         testObj.Id = this.template.querySelector("[data-field='Edit']").value;         
          updateUserRecord({updateRecord: testObj})
             .then(result => {                  
             this.recordId=result.Id;                   

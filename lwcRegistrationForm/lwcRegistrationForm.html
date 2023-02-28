@@ -24,10 +24,11 @@
             <p if:true = {enableCountryField} class="input-vald">{countryValidationText}</p>
             <label><span class="span-col">*</span>Phone Number</label>            
             <input type="text" data-field="Phone" class="input-field-test"></input>
+            <input type="text" data-field="Edit" style="display:none"></input>
             <p if:true = {enablePhoneField} class="input-vald">{phoneValidationText}</p>
             <div class="slds-text-align_right submit-btn">
                 <button if:false = {enableEdit} class="smt-btn" onclick={onSubmit} >Submit</button>
-                <button if:true = {enableEdit}  data-field="Edit" class="smt-btn" onclick={onSubmit} >Update</button>
+                <button if:true = {enableEdit} class="smt-btn" onclick={onSubmit} >Update</button>
             </div>
         </div>
     </div>  
