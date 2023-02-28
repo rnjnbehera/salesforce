@@ -39,6 +39,7 @@ export default class LwcRegistrationForm extends LightningElement {
         testObj.Id = event.target.id.replace('-12',"");
         let text = "Are you sure to do this operation!.";
         if (confirm(text) == true) {
+
                 deleteUserRecord({deleteRecord: testObj})
                     .then(result => {
                     this.recordId=result.Id;           
@@ -53,10 +54,7 @@ export default class LwcRegistrationForm extends LightningElement {
     
      edit(event){
        this.enableEdit=true;
-       if(this.template.querySelector("[data-field='Edit']") != null)
-       {
-         this.template.querySelector("[data-field='Edit']").id = event.target.id.replace('-12',"");
-       }       
+       this.template.querySelector("[data-field='Edit']").id = event.target.id.replace('-12',"");          
        this.template.querySelector("[data-field='FirstName']").value 
        = this.userInputs.filter(info => info.Id == event.target.id.replace('-12',""))[0].Name.split(" ")[0];
        this.template.querySelector("[data-field='LastName']").value 
