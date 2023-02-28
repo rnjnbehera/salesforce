@@ -1,4 +1,5 @@
 import { LightningElement,wire } from 'lwc';
+import { refreshApex } from '@salesforce/apex';
 import createUserRecord from '@salesforce/apex/testObjectController.createUserRecord';
 import getTestFirst from '@salesforce/apex/testObjectController.getTestFirst';
 import updateUserRecord from '@salesforce/apex/testObjectController.updateUserRecord';
@@ -22,6 +23,7 @@ export default class LwcRegistrationForm extends LightningElement {
     error = "";
     userInputs = [];
     enableEdit = false;
+
     @wire(getTestFirst)
     wiredTestFirst({ error, data }){
         if(data){
@@ -41,9 +43,10 @@ export default class LwcRegistrationForm extends LightningElement {
         if (confirm(text) == true) {
 
                 deleteUserRecord({deleteRecord: testObj})
-                    .then(result => {
+                    .then(result => {                     
                     this.recordId=result.Id;           
-                    console.log(result);
+                    return refreshApex(this.userInputs);  
+
                     })
                     .catch(error => {
                         console.log(error);
@@ -66,9 +69,9 @@ export default class LwcRegistrationForm extends LightningElement {
         this.template.querySelector("[data-field='Country']").value 
             = this.userInputs.filter(info => info.Id == event.target.id.replace('-12',""))[0].Country__c;
         if(this.template.querySelector("[data-field='Edit']") != null)
-        {     
-            this.template.querySelector("[data-field='Edit']").id = event.target.id.replace('-12',"");   
-        }  
+        {    
+           this.template.querySelector("[data-field='Edit']").id = event.target.id.replace('-12',"");    
+        }
     }
 
     country(event){
@@ -176,9 +179,9 @@ export default class LwcRegistrationForm extends LightningElement {
        {
          testObj.Id = this.template.querySelector("[data-field='Edit']").id;
          updateUserRecord({updateRecord: testObj})
-            .then(result => {
-            this.recordId=result.Id;           
-            console.log(result);
+            .then(result => {                  
+            this.recordId=result.Id;                   
+            return refreshApex(this.userInputs);  
             })
             .catch(error => {
                 console.log(error);
@@ -187,9 +190,9 @@ export default class LwcRegistrationForm extends LightningElement {
        }
        else{
         createUserRecord({newRecord: testObj})
-                .then(result => {
+                .then(result => { 
                 this.recordId=result.Id;                
-                console.log(result);
+                return refreshApex(this.userInputs);  
                 })
                 .catch(error => {
                     console.log(error);
