@@ -54,7 +54,7 @@ export default class LwcRegistrationForm extends LightningElement {
     
      edit(event){
        this.enableEdit=true;
-       this.template.querySelector("[data-field='Edit']").id = event.target.id.replace('-12',"");          
+                
        this.template.querySelector("[data-field='FirstName']").value 
        = this.userInputs.filter(info => info.Id == event.target.id.replace('-12',""))[0].Name.split(" ")[0];
        this.template.querySelector("[data-field='LastName']").value 
@@ -65,6 +65,10 @@ export default class LwcRegistrationForm extends LightningElement {
         = this.userInputs.filter(info => info.Id == event.target.id.replace('-12',""))[0].Phone__c;        
         this.template.querySelector("[data-field='Country']").value 
             = this.userInputs.filter(info => info.Id == event.target.id.replace('-12',""))[0].Country__c;
+        if(this.template.querySelector("[data-field='Edit']") != null)
+        {     
+            this.template.querySelector("[data-field='Edit']").id = event.target.id.replace('-12',"");   
+        }  
     }
 
     country(event){
