@@ -1,0 +1,45 @@
+public with sharing class testObjectController {
+ @AuraEnabled(cacheable=true)
+ public static List<testFirst__c> getTestFirst(){
+     return[
+         SELECT Id, Name, Phone__c, Email__c, Country__c 
+         FROM testFirst__c
+         ORDER BY Id Desc
+         LIMIT 10
+     ];
+ }
+ @AuraEnabled
+ public static testFirst__c getTestFirstById(String singleId){
+     return[
+         SELECT Id, Name, Phone__c, Email__c, Country__c 
+         FROM testFirst__c where Id = :singleId
+         ORDER BY Id Desc
+         LIMIT 10
+     ];
+ } 
+ @AuraEnabled
+ public static testFirst__c createUserRecord(testFirst__c newRecord){
+     insert newRecord;
+     return newRecord;
+ }
+ @AuraEnabled
+ public static testFirst__c updateUserRecord(testFirst__c updateRecord){
+         testFirst__c queriedTestdata = [SELECT Name, Phone__c, Email__c, Country__c 
+         FROM testFirst__c where Id = : updateRecord.Id];
+     
+         queriedTestdata.Name=updateRecord.Name;
+         queriedTestdata.Phone__c=updateRecord.Phone__c;
+         queriedTestdata.Email__c=updateRecord.Email__c;
+         queriedTestdata.Country__c=updateRecord.Country__c;
+         Database.update(queriedTestdata,true);
+     
+         return queriedTestdata;
+ }
+  @AuraEnabled
+ public static testFirst__c deleteUserRecord(testFirst__c deleteRecord){
+         testFirst__c queriedTestdata = [SELECT Name, Phone__c, Email__c, Country__c 
+         FROM testFirst__c where Id = : deleteRecord.Id];
+     delete queriedTestdata;
+     return queriedTestdata;
+ }   
+}
